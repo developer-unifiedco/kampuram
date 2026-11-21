@@ -1,0 +1,106 @@
+{
+    "home": {
+        "bodyClass": "group-home",
+        "title": "Kampuram Business Group | Manjeri, Kerala",
+        "description": "Kampuram Business Group in Manjeri brings together advertising, digital design and video, wedding invitations, and books.",
+        "themeColor": "#ee6b2f",
+        "icon": "assets/kampuram-group-favicon.png?v=20261112-2",
+        "styles": [
+            "home.css?v=20261112-4"
+        ],
+        "logo": {
+            "src": "assets/kampuram-business-group-logo.png?v=20261112",
+            "width": 560,
+            "height": 338,
+            "alt": "Kampuram Business Group"
+        },
+        "enquiry": "Hi, I would like to know more about Kampuram Business Group."
+    },
+    "media": {
+        "bodyClass": "advertisements-page",
+        "title": "Kampuram Media Advertisements | Print, Digital & Outdoor",
+        "description": "Browse Kampuram Media advertisements for print, digital and outdoor. Explore image and video creatives and enquire on WhatsApp. Based in Manjeri, Kerala.",
+        "themeColor": "#ed6a2f",
+        "icon": "assets/kampuram-group-favicon.png?v=20261112-2",
+        "styles": [
+            "kampuram-media.css?v=20261112"
+        ],
+        "logo": {
+            "src": "assets/kampuram-ad-media-trimmed.png",
+            "width": 1046,
+            "height": 750,
+            "alt": "Kampuram Admedia — newspaper, TV, radio ad agency"
+        },
+        "enquiry": "Hi, I would like to know more about Kampuram Media."
+    },
+    "cards": {
+        "bodyClass": "cards-page",
+        "title": "Cards Kendra | Wedding Invitations in Manjeri",
+        "description": "Discover wedding invitations at Cards Kendra, Manjeri. Browse classic, floral and contemporary card designs and enquire on WhatsApp.",
+        "themeColor": "#ed6a2f",
+        "icon": "assets/kampuram-group-favicon.png?v=20261112-2",
+        "styles": [
+            "kampuram-media.css?v=20261112",
+            "cards-kendra.css"
+        ],
+        "logo": {
+            "src": "assets/cardskendra-logo-trimmed.png",
+            "width": 1220,
+            "height": 990,
+            "alt": "Cards Kendra — exclusive wedding cards showroom"
+        },
+        "enquiry": "Hi, I would like to know more about Cards Kendra wedding invitations."
+    },
+    "books": {
+        "bodyClass": "books-page",
+        "title": "Kampuram Books | Publications & New Releases",
+        "description": "Explore publications, titles and new releases at Kampuram Books, Manjeri. Browse the book catalogue and enquire on WhatsApp.",
+        "themeColor": "#ed6a2f",
+        "icon": "assets/kampuram-group-favicon.png?v=20261112-2",
+        "styles": [
+            "kampuram-media.css?v=20261112",
+            "kampuram-books.css"
+        ],
+        "logo": {
+            "src": "assets/kampuram-books.png",
+            "width": 937,
+            "height": 527,
+            "alt": "Kampuram Books logo"
+        },
+        "enquiry": "Hi, I would like to know more about Kampuram Books."
+    },
+    "digi-world": {
+        "bodyClass": "digi-page",
+        "title": "Kampuram Digi World | Design and Video",
+        "description": "Kampuram Digi World in Manjeri offers social media ads, graphic design, motion video and video production.",
+        "themeColor": "#ed6a2f",
+        "icon": "assets/favicon.png",
+        "styles": [
+            "kampuram-digi-world.css?v=20261112-4"
+        ],
+        "logo": {
+            "src": "assets/kampuram-logo-trimmed.png",
+            "width": 700,
+            "height": 264,
+            "alt": "Kampuram Digi World"
+        },
+        "enquiry": "Hi, I would like to know more about Kampuram Digi World."
+    },
+    "contact": {
+        "bodyClass": "contact-page",
+        "title": "Contact | Kampuram Business Group",
+        "description": "Contact Kampuram Business Group in Manjeri for advertising, design, video, wedding invitations and books. Call, chat on WhatsApp or find directions to Madari Tower, near Civil Station.",
+        "themeColor": "#ed6a2f",
+        "icon": "assets/kampuram-group-favicon.png?v=20261112-2",
+        "styles": [
+            "contact.css?v=20261112"
+        ],
+        "logo": {
+            "src": "assets/kampuram-business-group-logo.png?v=20261112",
+            "width": 560,
+            "height": 338,
+            "alt": "Kampuram Business Group"
+        },
+        "enquiry": "Hi, I would like to know more about Kampuram Business Group."
+    }
+}
