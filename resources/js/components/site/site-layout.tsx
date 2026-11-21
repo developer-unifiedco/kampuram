@@ -4,12 +4,12 @@ import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren } 
 import { EnquiryFallback, Icon, SiteImage, SiteLink, useSiteAsset, WhatsAppButton, WhatsAppLink } from './site-elements';
 import { useSiteMotion } from './use-site-motion';
 
-const navigation: { page: SitePage; header: string; footer?: string }[] = [
+const navigation: { page: SitePage; header: string; footer?: string; showLogo?: boolean }[] = [
     { page: 'home', header: 'Home' },
-    { page: 'media', header: 'Kampuram Media', footer: 'Media' },
-    { page: 'cards', header: 'Cards Kendra' },
-    { page: 'books', header: 'Kampuram Books', footer: 'Books' },
-    { page: 'digi-world', header: 'Digi World' },
+    { page: 'media', header: 'Kampuram Media', footer: 'Media', showLogo: true },
+    { page: 'cards', header: 'Cards Kendra', showLogo: true },
+    { page: 'books', header: 'Kampuram Books', footer: 'Books', showLogo: true },
+    { page: 'digi-world', header: 'Digi World', showLogo: true },
     { page: 'contact', header: 'Contact' },
 ];
 
@@ -93,17 +93,31 @@ function SiteHeader({ page }: { page: SitePage }) {
                 <span />
             </button>
             <nav id="main-nav" aria-label="Main navigation" className={open ? 'is-open' : undefined}>
-                {navigation.map((item) => (
-                    <SiteLink
-                        key={item.page}
-                        to={item.page}
-                        className={item.page === page ? 'nav-home' : undefined}
-                        aria-current={item.page === page ? 'page' : undefined}
-                        onClick={() => setOpen(false)}
-                    >
-                        {item.header}
-                    </SiteLink>
-                ))}
+                {navigation.map((item) => {
+                    const active = item.page === page;
+                    const classes = [item.showLogo && 'nav-business', active && 'nav-home'].filter(Boolean).join(' ');
+
+                    return (
+                        <SiteLink
+                            key={item.page}
+                            to={item.page}
+                            className={classes || undefined}
+                            aria-current={active ? 'page' : undefined}
+                            onClick={() => setOpen(false)}
+                        >
+                            {item.showLogo ? (
+                                <>
+                                    <span>{item.header}</span>
+                                    <span className="nav-logo">
+                                        <SiteImage {...sitePages[item.page].logo} alt="" />
+                                    </span>
+                                </>
+                            ) : (
+                                item.header
+                            )}
+                        </SiteLink>
+                    );
+                })}
             </nav>
         </header>
     );

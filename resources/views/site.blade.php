@@ -8,7 +8,7 @@
         <meta inertia="description" name="description" content="{{ $sitePage['description'] }}">
         <title inertia>{{ $sitePage['title'] }}</title>
         <link inertia="site-icon" rel="icon" type="image/png" sizes="64x64" href="{{ asset('kampuram-site/'.$sitePage['icon']) }}">
-        <link rel="stylesheet" href="{{ asset('kampuram-site/styles.css?v=20261112-3') }}">
+        <link rel="stylesheet" href="{{ asset('kampuram-site/styles.css?v=20261121-nav') }}">
         @foreach ($sitePage['styles'] as $style)
             <link inertia="{{ $style }}" rel="stylesheet" href="{{ asset('kampuram-site/'.$style) }}">
         @endforeach
