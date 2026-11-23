@@ -7,6 +7,9 @@ interface DigiServiceItem {
     description: string;
     formats: string[];
     image: string | null;
+    type?: 'image' | 'video' | null;
+    videoUrl?: string | null;
+    poster?: string | null;
 }
 
 interface DigiWorldProps {
@@ -54,39 +57,58 @@ export default function DigiWorld({ services }: DigiWorldProps) {
                 </div>
                 <div className="digi-service-grid">
                     {services && services.length > 0 ? (
-                        services.map((service) => (
-                            <article key={service.id} className="digi-service">
-                                {service.image && (
-                                    <SiteImage
-                                        className="digi-service-image"
-                                        src={service.image}
-                                        alt={service.title}
-                                        width={800}
-                                        height={600}
-                                        loading="lazy"
-                                    />
-                                )}
-                                <h3>{service.title}</h3>
-                                {service.description && <p>{service.description}</p>}
-                                {service.formats && service.formats.length > 0 && (
-                                    <ul className="service-formats">
-                                        {service.formats.map((fmt, idx) => (
-                                            <li key={idx}>{fmt}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                                <WhatsAppLink
-                                    className="button button-whatsapp"
-                                    aria-label={`Enquire about ${service.title} on WhatsApp`}
-                                    message={`Hi, I would like to enquire about ${service.title} from Kampuram Digi World.`}
-                                >
-                                    <svg aria-hidden="true">
-                                        <use href="#whatsapp" />
-                                    </svg>{' '}
-                                    Enquire on WhatsApp
-                                </WhatsAppLink>
-                            </article>
-                        ))
+                        services.map((service) => {
+                            const isVideo = service.type === 'video' || Boolean(service.videoUrl);
+                            const videoSource = service.videoUrl || (isVideo ? service.image : null);
+                            const posterSource = service.poster || (isVideo && service.image && service.image !== videoSource ? service.image : null);
+
+                            return (
+                                <article key={service.id} className="digi-service">
+                                    {isVideo && videoSource ? (
+                                        <div className="digi-service-video-wrap">
+                                            <video
+                                                controls
+                                                playsInline
+                                                preload="metadata"
+                                                poster={posterSource ? asset(posterSource) : undefined}
+                                                aria-label={`Preview video for ${service.title}`}
+                                            >
+                                                <source src={asset(videoSource)} type="video/mp4" />
+                                                <a href={asset(videoSource)}>Open the video</a>
+                                            </video>
+                                        </div>
+                                    ) : service.image ? (
+                                        <SiteImage
+                                            className="digi-service-image"
+                                            src={service.image}
+                                            alt={service.title}
+                                            width={800}
+                                            height={600}
+                                            loading="lazy"
+                                        />
+                                    ) : null}
+                                    <h3>{service.title}</h3>
+                                    {service.description && <p>{service.description}</p>}
+                                    {service.formats && service.formats.length > 0 && (
+                                        <ul className="service-formats">
+                                            {service.formats.map((fmt, idx) => (
+                                                <li key={idx}>{fmt}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    <WhatsAppLink
+                                        className="button button-whatsapp"
+                                        aria-label={`Enquire about ${service.title} on WhatsApp`}
+                                        message={`Hi, I would like to enquire about ${service.title} from Kampuram Digi World.`}
+                                    >
+                                        <svg aria-hidden="true">
+                                            <use href="#whatsapp" />
+                                        </svg>{' '}
+                                        Enquire on WhatsApp
+                                    </WhatsAppLink>
+                                </article>
+                            );
+                        })
                     ) : (
                         <>
                             <article className="digi-service">
@@ -150,14 +172,18 @@ export default function DigiWorld({ services }: DigiWorldProps) {
                                 </WhatsAppLink>
                             </article>
                             <article className="digi-service">
-                                <SiteImage
-                                    className="digi-service-image"
-                                    src="assets/demo/advertisement-preview.jpg"
-                                    alt="Sample creative with a mobile video composition beside printed posters"
-                                    width={800}
-                                    height={600}
-                                    loading="lazy"
-                                />
+                                <div className="digi-service-video-wrap">
+                                    <video
+                                        controls
+                                        playsInline
+                                        preload="none"
+                                        poster={asset('assets/demo/advertisement-preview.jpg')}
+                                        aria-label="Play silent sample advertisement video"
+                                    >
+                                        <source src={asset('assets/demo/advertisement-preview.mp4')} type="video/mp4" />
+                                        <a href={asset('assets/demo/advertisement-preview.mp4')}>Open the sample video</a>
+                                    </video>
+                                </div>
                                 <h3>Motion video and video production</h3>
                                 <p>
                                     Put your message into motion for a promotion or introduction. Discuss a motion creative or video production around your

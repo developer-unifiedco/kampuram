@@ -27,9 +27,9 @@ class ListingController extends Controller
 
         $query = Listing::where('section', $sectionId)->ordered();
 
-        // Optional media filter for Media section
+        // Optional media filter for Media and Digi World sections
         $mediaFilter = $request->query('filter', 'all');
-        if ($sectionId === Listing::SECTION_MEDIA) {
+        if (in_array($sectionId, [Listing::SECTION_MEDIA, Listing::SECTION_DIGI_WORLD], true)) {
             if ($mediaFilter === 'images') {
                 $query->where('media_type', Listing::MEDIA_IMAGE);
             } elseif ($mediaFilter === 'videos') {
@@ -399,7 +399,7 @@ class ListingController extends Controller
             $rules['price'] = ['nullable', 'numeric', 'min:0', 'max:99999999.99', 'decimal:0,2'];
         }
 
-        if ($sectionId === Listing::SECTION_MEDIA) {
+        if (in_array($sectionId, [Listing::SECTION_MEDIA, Listing::SECTION_DIGI_WORLD], true)) {
             $rules['media'] = ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/webp,video/mp4,video/webm', 'max:20480'];
             $rules['poster'] = ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/webp', 'max:5120'];
         } else {
@@ -424,9 +424,9 @@ class ListingController extends Controller
                 ]);
             }
 
-            if ($isVideo && $sectionId !== Listing::SECTION_MEDIA) {
+            if ($isVideo && ! in_array($sectionId, [Listing::SECTION_MEDIA, Listing::SECTION_DIGI_WORLD], true)) {
                 throw ValidationException::withMessages([
-                    'media' => 'Videos are only allowed for Kampuram Media.',
+                    'media' => 'Videos are only allowed for Kampuram Media and Kampuram Digi World.',
                 ]);
             }
         }

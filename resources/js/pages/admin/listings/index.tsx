@@ -96,8 +96,8 @@ export default function ListingsIndex({
                     </Link>
                 </div>
 
-                {/* Media Section Filters (All / Images / Videos) */}
-                {section === 'media' && (
+                {/* Media & Digi World Section Filters (All / Images / Videos) */}
+                {(section === 'media' || section === 'digi-world') && (
                     <div className="flex items-center gap-1.5 border-b border-[#E8E4DD] pb-3 text-xs">
                         <Link
                             href={route('admin.listings.index', { section, filter: 'all' })}
@@ -107,7 +107,7 @@ export default function ListingsIndex({
                                     : 'text-[#66625B] hover:bg-[#EFECE6]'
                             }`}
                         >
-                            All Media
+                            {section === 'digi-world' ? 'All Services' : 'All Media'}
                         </Link>
                         <Link
                             href={route('admin.listings.index', { section, filter: 'images' })}
@@ -178,7 +178,7 @@ export default function ListingsIndex({
                                                 <img
                                                     src={displayImage}
                                                     alt={item.title}
-                                                    className="h-full w-full object-cover"
+                                                    className={`h-full w-full ${section === 'digi-world' ? 'object-contain bg-[#f0ebe2]' : 'object-cover'}`}
                                                 />
                                             ) : (
                                                 <div className="flex h-full w-full items-center justify-center text-[#A8A49C]">

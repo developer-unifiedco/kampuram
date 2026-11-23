@@ -58,6 +58,29 @@ test('admin can create a published listing with media', function () {
     ]);
 });
 
+test('admin can create and publish a digi-world service with video', function () {
+    $video = UploadedFile::fake()->create('service.mp4', 1000, 'video/mp4');
+    $poster = UploadedFile::fake()->image('poster.jpg', 800, 600)->size(300);
+
+    $response = $this->actingAs($this->admin, 'admin')
+        ->post(route('admin.listings.store', ['section' => 'digi-world']), [
+            'title' => 'Dynamic Video Production',
+            'description' => 'High quality promotional videos',
+            'service_formats' => "Commercials\nReels",
+            'media' => $video,
+            'poster' => $poster,
+            'intent' => 'publish',
+        ]);
+
+    $response->assertRedirect(route('admin.listings.index', ['section' => 'digi-world']));
+    $this->assertDatabaseHas('listings', [
+        'title' => 'Dynamic Video Production',
+        'section' => Listing::SECTION_DIGI_WORLD,
+        'status' => Listing::STATUS_PUBLISHED,
+        'media_type' => Listing::MEDIA_VIDEO,
+    ]);
+});
+
 test('cannot publish media listing without an upload', function () {
     $response = $this->actingAs($this->admin, 'admin')
         ->post(route('admin.listings.store', ['section' => 'media']), [

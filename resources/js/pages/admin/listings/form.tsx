@@ -375,8 +375,8 @@ export default function ListingForm({
                                     <label className="block text-xs font-semibold tracking-wider text-[#55524B] uppercase">
                                         {section === 'books'
                                             ? 'Cover Image'
-                                            : section === 'media'
-                                              ? 'Artwork Image or Motion Video'
+                                            : section === 'media' || section === 'digi-world'
+                                              ? 'Artwork Image or Video'
                                               : 'Card / Showcase Image'}
                                         {section !== 'digi-world' && ' (Required to publish)'}
                                     </label>
@@ -434,10 +434,10 @@ export default function ListingForm({
                                                     <Upload className="h-5 w-5" />
                                                 </div>
                                                 <p className="mt-2 text-xs font-semibold text-[#282723]">
-                                                    Click to select {section === 'media' ? 'an image or video' : 'an image'}
+                                                    Click to select {section === 'media' || section === 'digi-world' ? 'an image or video' : 'an image'}
                                                 </p>
                                                 <p className="mt-0.5 text-[11px] text-[#8A867E]">
-                                                    {section === 'media'
+                                                    {section === 'media' || section === 'digi-world'
                                                         ? 'JPG, PNG, WebP up to 5 MB • MP4, WebM up to 20 MB'
                                                         : 'JPG, PNG, WebP up to 5 MB'}
                                                     {section === 'books' && ' • Minimum 600px width'}
@@ -450,7 +450,7 @@ export default function ListingForm({
                                             type="file"
                                             onChange={handleMediaChange}
                                             accept={
-                                                section === 'media'
+                                                section === 'media' || section === 'digi-world'
                                                     ? 'image/jpeg,image/png,image/webp,video/mp4,video/webm'
                                                     : 'image/jpeg,image/png,image/webp'
                                             }
@@ -617,7 +617,7 @@ export default function ListingForm({
                                                 <img
                                                     src={posterPreviewUrl}
                                                     alt="Video poster"
-                                                    className="h-full w-full object-cover"
+                                                    className={`h-full w-full ${section === 'digi-world' ? 'object-contain bg-[#182b23]' : 'object-cover'}`}
                                                 />
                                                 <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                                                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-[#282723] shadow-lg">
@@ -630,7 +630,7 @@ export default function ListingForm({
                                                 ref={videoRef}
                                                 src={mediaPreviewUrl}
                                                 controls
-                                                className="h-full w-full object-cover"
+                                                className={`h-full w-full ${section === 'digi-world' ? 'object-contain bg-[#182b23]' : 'object-cover'}`}
                                             />
                                         ) : (
                                             <div className="flex h-full w-full items-center justify-center text-[#A8A49C]">
@@ -641,7 +641,7 @@ export default function ListingForm({
                                         <img
                                             src={mediaPreviewUrl}
                                             alt={data.title || 'Preview'}
-                                            className="h-full w-full object-cover"
+                                            className={`h-full w-full ${section === 'digi-world' ? 'object-contain bg-[#f0ebe2]' : 'object-cover'}`}
                                         />
                                     ) : (
                                         <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[#A8A49C]">

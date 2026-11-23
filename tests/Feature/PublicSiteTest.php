@@ -49,6 +49,26 @@ it('serves live published listings and excludes hidden listings on catalogue pag
         );
 });
 
+it('serves dynamic published services and excludes hidden ones on kampuram digi world page', function () {
+    Listing::query()->delete();
+
+    $publishedService = Listing::factory()->digiWorld()->published()->create([
+        'title' => 'Custom Branding Service',
+        'description' => 'Brand design and identity',
+    ]);
+    $hiddenService = Listing::factory()->digiWorld()->hidden()->create([
+        'title' => 'Unpublished Service',
+    ]);
+
+    $this->get('/kampuram-digi-world')
+        ->assertOk()
+        ->assertInertia(fn (Assert $inertia): Assert => $inertia
+            ->component('site/digi-world')
+            ->has('services', 1)
+            ->where('services.0.title', 'Custom Branding Service')
+        );
+});
+
 it('shares the dynamic WhatsApp number from database settings across public pages', function () {
     $setting = SiteSetting::current();
     $setting->update(['whatsapp_number' => '919876543210']);

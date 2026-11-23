@@ -47,9 +47,14 @@ class PublicSiteController extends Controller
             ->ordered()
             ->get()
             ->map(function (Listing $item) {
-                $imagePath = null;
+                $mainPath = null;
                 if ($item->media_path) {
-                    $imagePath = route('media.show', ['listing' => $item->id, 'variant' => 'main'], false);
+                    $mainPath = route('media.show', ['listing' => $item->id, 'variant' => 'main'], false);
+                }
+
+                $posterPath = null;
+                if ($item->poster_path) {
+                    $posterPath = route('media.show', ['listing' => $item->id, 'variant' => 'poster'], false);
                 }
 
                 $formats = [];
@@ -62,9 +67,14 @@ class PublicSiteController extends Controller
                     'title' => $item->title,
                     'description' => $item->description,
                     'formats' => $formats,
-                    'image' => $imagePath,
+                    'type' => $item->isVideo() ? 'video' : ($item->isImage() ? 'image' : null),
+                    'image' => $item->isVideo() ? ($posterPath ?: $mainPath) : $mainPath,
+                    'videoUrl' => $item->isVideo() ? $mainPath : null,
+                    'poster' => $posterPath,
                 ];
-            });
+            })
+            ->values()
+            ->all();
 
         return Inertia::render('site/digi-world', [
             'services' => $services,
